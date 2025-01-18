@@ -12,5 +12,5 @@ class Node:
         self.bound = bound
         self.solution = None
         
-    # def __lt__(self, other):
-        # return self.bound > other.bound
+    def __lt__(self, other):
+        return self.bound > other.bound
