@@ -1,6 +1,6 @@
 # main.py
 
-from bbmulti import Item, KnapsackSolver, KnapsackSolverMultiprocess
+from bb_multi import Item, KnapsackSolver, KnapsackSolverMultiprocess
 from data_generator import generate_knapsack_data, create_items_table
 
 def main():
