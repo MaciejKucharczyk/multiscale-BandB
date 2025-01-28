@@ -2,13 +2,7 @@
 
 from data_generator import generate_knapsack_data, create_items_table
 """
-Author: Nathan Rice
-0-1 Knapsack Problem using best first branch and bound method 
-Returns maxprofit with list storing the index position of the items in the best solution.
-The profit is maximized while staying under the weight limit.
-This program uses a priority queue to store the nodes ordered by best bound,
-the node with the highest bound value is returned when removing from the priority queue.
-The best first approach arrives at an optimal solition faster than breadth first search.
+Prosta wersja jednowatkowa algorytmu 0-1 Knapsack (nie dziala)
 """
 #examples
 # W = 13

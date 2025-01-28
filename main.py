@@ -1,40 +1,42 @@
-from typing import TypedDict
-import heapq
-from get_data import read_knapsack, read_optimal_solution
-from branchandbound import bound, branch_and_bound
-from data_generator import generate_knapsack_data
+# main.py
 
-DIR = "w10c165"
-OPTIMAL_FILE = "optimal.txt"
-PROFITS_FILE = "profits.txt"
-WEIGHTS_FILE = "weights.txt"
-SIZE_FILE = "size.txt"
+from bbmulti import Item, KnapsackSolver, KnapsackSolverMultiprocess
+from data_generator import generate_knapsack_data, create_items_table
 
+def main():
+    weights, profits, capacity = generate_knapsack_data(100, 100, 50, 1000)  # num_items, max_value, max_weight, capacity
+    n = 100
+    W = 1000
+    items = [Item(i, profits[i-1], weights[i-1]) for i in range(1, n+1)]
 
-def bandb():
-    weights, profits, capacity = read_knapsack(WEIGHTS_FILE, PROFITS_FILE, SIZE_FILE, DIR)
-
-    print(f"Weights: {weights} \n profits: {profits} \n capacity: {capacity}")
-
-    solution, max_profit = branch_and_bound(capacity, weights, profits)
-    print(f"Max profit: {max_profit} \n Solution: \n {solution}")
+    num_threads = 1  # Number of threads/processes
     
-import itertools
+    # Display Items Table
+    print("\nITEMS")
+    item_table = create_items_table(weights, profits)
+    # print(item_table)
+    
 
-def knapsack_brute_force(weights, values, capacity):
-    num_items = len(weights)
-    max_value = 0
-    best_combination = []
+    # Using Multithreading
+    print("Running Multithreaded Branch and Bound Solver")
+    solver = KnapsackSolver(items, W, num_threads=num_threads)
+    solver.parallel_branch_and_bound()
+    print(f"Max Profit: {solver.max_profit}")
+    print(f"Best Items: {sorted(solver.best_items)}")
+    print(f"Nodes Generated: {solver.nodes_generated}")
 
-    # Iterujemy po wszystkich możliwych kombinacjach przedmiotów
-    for combination in itertools.product([0, 1], repeat=num_items):
-        total_weight = sum(weights[i] * combination[i] for i in range(num_items))
-        total_value = sum(values[i] * combination[i] for i in range(num_items))
+    # Using Multiprocessing
+    print("\nRunning Multiprocessing Branch and Bound Solver")
+    solver_mp = KnapsackSolverMultiprocess(items, W, num_processes=num_threads)
+    solver_mp.parallel_branch_and_bound()
+    print(f"Max Profit: {solver_mp.max_profit.value}")
+    print(f"Best Items: {sorted(list(solver_mp.best_items))}")
+    print(f"Nodes Generated: {solver_mp.nodes_generated.value}")
 
-        # Sprawdzamy, czy waga nie przekracza pojemności plecaka
-        if total_weight <= capacity and total_value > max_value:
-            max_value = total_value
-            best_combination = combination
 
-    return max_value, best_combination
+    print("\nPARAMS:")
+    print(f"Number of items = {n}")
+    print(f"Capacity = {W}")
 
+if __name__ == "__main__":
+    main()
