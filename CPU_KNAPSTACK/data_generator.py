@@ -14,6 +14,7 @@ def generate_knapsack_data(num_items, max_value, max_weight, capacity):
 
 # Funkcja tworzenia tabeli z przedmiotami
 def create_items_table(weights, values):
+<<<<<<< HEAD:CPU_KNAPSTACK/data_generator.py
     print("DEBUG: weights:", weights)
     print("DEBUG: values:", values)
     
@@ -25,11 +26,16 @@ def create_items_table(weights, values):
 
     ratios = [v / w if w != 0 else 0 for v, w in zip(values, weights)]
     
+=======
+    # Obliczanie stosunku wartości do wagi
+    # ratios = [v / w for v, w in zip(values, weights)]
+    # Tworzenie DataFrame
+>>>>>>> b7ee2472522bcd5b39f6bd879423fd3bdaa1d5cb:data_generator.py
     df = pd.DataFrame({
         "Index": range(len(weights)),
         "Weight": weights,
         "Value": values,
-        "Value/Weight Ratio": ratios
+        # "Value/Weight Ratio": ratios
     })
 
     print("Columns in DataFrame:", df.columns)  # ✅ Poprawiona linia

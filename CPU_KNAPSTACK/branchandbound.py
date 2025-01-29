@@ -102,6 +102,7 @@ def branch_and_bound(capacity, weights, values):
     return [best_solution, max_profit]
 
 weights, profits, capacity = generate_knapsack_data(100, 100, 50, 1000) # num_items, max_value, max_weight, capacity
+# weights, profits, capacity = read_knapsack(WEIGHTS_FILE, PROFITS_FILE, SIZE_FILE, DIR)
 
 # Tworzenie tabeli
 items_table = create_items_table(weights, profits)
