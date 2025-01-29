@@ -4,7 +4,7 @@ DZIALA
 wielowatkowa i wieloprocesowa wersja algorytmu branch and bound
 """
 
-from data_generator import generate_knapsack_data, create_items_table
+from data.data_generator import generate_knapsack_data, create_items_table
 from threading import Thread, Lock
 import heapq
 

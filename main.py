@@ -1,7 +1,7 @@
 # main.py
 
 from bb_multi import Item, KnapsackSolver, KnapsackSolverMultiprocess
-from data_generator import generate_knapsack_data, create_items_table
+from data.data_generator import generate_knapsack_data, create_items_table
 
 def main():
     weights, profits, capacity = generate_knapsack_data(100, 100, 50, 1000)  # num_items, max_value, max_weight, capacity
